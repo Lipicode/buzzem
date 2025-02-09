@@ -7,11 +7,23 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             background-color: #f4f4f4;
+        }
+        button {
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        button img {
+            width: 40px;
+            height: 40px;
         }
         iframe {
             width: 90%;
@@ -31,6 +43,24 @@
     </style>
 </head>
 <body>
-    <iframe src="buzzem.html" title="Buzzem Page"></iframe>
+    <button onclick="toggleFullscreen()">
+        <img src="https://cdn-icons-png.freepik.com/512/54/54431.png" alt="Fullscreen">
+    </button>
+    <iframe id="iframe" src="buzzem.html" title="Buzzem Page"></iframe>
+
+    <script>
+        function toggleFullscreen() {
+            let iframe = document.getElementById('iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+    </script>
 </body>
 </html>
