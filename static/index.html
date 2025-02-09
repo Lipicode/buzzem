@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buzzem</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        button {
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        button img {
+            width: 40px;
+            height: 40px;
+        }
+        iframe {
+            width: 90%;
+            height: 90vh;
+            border: 10px solid;
+            border-image-source: linear-gradient(45deg, red, blue, green, yellow, red);
+            border-image-slice: 1;
+            animation: glowing 3s infinite linear;
+        }
+        @keyframes glowing {
+            0% { border-image-source: linear-gradient(45deg, red, blue, green, yellow, red); }
+            25% { border-image-source: linear-gradient(45deg, blue, green, yellow, red, blue); }
+            50% { border-image-source: linear-gradient(45deg, green, yellow, red, blue, green); }
+            75% { border-image-source: linear-gradient(45deg, yellow, red, blue, green, yellow); }
+            100% { border-image-source: linear-gradient(45deg, red, blue, green, yellow, red); }
+        }
+    </style>
+</head>
+<body>
+    <button onclick="toggleFullscreen()">
+        <img src="https://cdn-icons-png.freepik.com/512/54/54431.png" alt="Fullscreen">
+    </button>
+    <iframe id="iframe" src="buzzem.html" title="Buzzem Page"></iframe>
+
+    <script>
+        function toggleFullscreen() {
+            let iframe = document.getElementById('iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>
