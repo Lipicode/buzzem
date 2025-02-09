@@ -1,0 +1,272 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Buzzem</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+<style>
+:root {
+--thumbnail-height: 200px;
+--bg-dark: #121212;
+--text-dark: #00ff00;
+--bg-card: #1f1f1f;
+--bg-light: #f8f9fa;
+--text-light: #212529;
+--accent-color: #00ff00
+}
+body {
+font-family: "Press Start 2P", monospace;
+background: var(--bg-dark);
+color: var(--text-dark);
+transition: background-color 0.5s, color 0.5s;
+padding-top: 70px
+}
+body.theme-light {
+background: var(--bg-light);
+color: var(--text-light)
+}
+.navbar-brand {
+font-weight: bold
+}
+.nav-link.active {
+font-weight: bold;
+color: var(--accent-color) !important
+}
+
+        #startupScreen {
+position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000
+        }
+
+        #terminalOutput {
+            white-space: pre-wrap;
+            font-size: 0.9rem
+        }
+
+        .game-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-card);
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.5)
+        }
+
+        .game-card-thumbnail {
+            height: var(--thumbnail-height);
+            width: 100%;
+            object-fit: cover
+        }
+
+        .game-card-body {
+            padding: 1rem
+        }
+
+        .game-card-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem
+        }
+
+        #iframeContainer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            height: 90vh;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--text-dark);
+            z-index: 1500;
+            display: none;
+            flex-direction: column;
+            resize: both;
+            overflow: auto
+        }
+
+        #iframeContainer.theme-light {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: var(--text-light)
+        }
+
+        #iframeContainer iframe {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            border: none
+        }
+
+        .iframe-controls {
+display: flex;
+justify-content: flex-end;
+padding: 10px;
+background: var(--bg-card)
+}
+@keyframes fadeIn {
+from {
+opacity: 0
+}
+to {
+opacity: 1
+}
+}
+.container {
+animation: fadeIn 1s ease-in
+}
+#searchBar {
+border: 2px solid var(--accent-color);
+border-radius: 50px;
+padding: 10px 20px;
+background: transparent;
+color: inherit
+}
+#searchBar::placeholder {
+color: var(--text-dark)
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<div class="container-fluid"><a class="navbar-brand" href="#">Buzzem</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link active" id="navMain" href="#">Main</a></li>
+<li class="nav-item"><a class="nav-link" id="navApps" href="#">Apps</a></li>
+</ul>
+<div class="d-flex"><button class="btn btn-outline-secondary me-2" id="themeToggle">Toggle Theme</button><a href="https://github.com/Lipicode/buzzem/" target="_blank" class="btn btn-outline-secondary">GitHub</a></div>
+</div>
+</div>
+</nav>
+<div id="startupScreen">
+<pre id="terminalOutput"></pre>
+</div>
+<div id="mainContent" class="container py-5">
+<h1 class="text-center mb-4">Buzzem</h1><input id="searchBar" type="text" class="form-control mb-4" placeholder="Search games..." />
+<div class="row g-4" id="gameList"></div>
+</div>
+<div id="appsContent" class="container py-5" style="display:none;"><iframe src="apps.html" style="width:100%;height:80vh;border:none;"></iframe></div>
+<div id="iframeContainer">
+<div class="iframe-controls"><button id="closeIframe" class="btn btn-sm btn-outline-danger">×</button></div><iframe src="" id="gameIframe"></iframe>
+</div>
+<script>
+const games = [
+                 {
+                    id: "TTOK1",
+                    title: "Tiktok (server 1)",
+                    genre: "action",
+                    thumbnail: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/03/tiktok.jpg",
+                    url: "https://xenapsis.dev/uv/service/hvtrs8%2F-wuw%2Ctkkvoi.aoo%2Fgxrlmrg",
+                    popularity: 85,
+                    rating: 4.5,
+                    releaseDate: "2024-01-15",
+                },
+               {
+                    id: "TTOK2",
+                    title: "Tiktok (server 2)",
+                    genre: "action",
+                    thumbnail: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/03/tiktok.jpg",
+                    url: "https://edgedcircles.com/uv/service/hvtrs8%2F-wuw%2Ctkkvoi.aoo%2F",
+                    popularity: 85,
+                    rating: 4.5,
+                    releaseDate: "2024-01-15",
+                },
+];
+function startupSequence() {
+const t = document.getElementById("terminalOutput"),
+s = document.getElementById("startupScreen"),
+m = document.getElementById("mainContent"),
+msgs = ["Initializing Buzzem Apps...", "Made by Pgogi aka NoNoxi aka Nominaz", "Preparing apps hub...", "idk what to put here lol"];
+let mi = 0,
+ci = 0;
+function typeNextChar() {
+if (mi < msgs.length) {
+const currentMessage = msgs[mi];
+if (ci < currentMessage.length) {
+t.textContent += currentMessage[ci];
+setTimeout(typeNextChar, 50) ci++; 
+} else {
+t.textContent += "\n";
+mi++;
+ci = 0;
+setTimeout(typeNextChar, 500)
+}
+} else {
+setTimeout(() => {
+s.style.display = "none";
+m.style.display = "block"
+}, 500)
+}
+};
+typeNextChar()
+}
+function renderGames(gList = games) {
+const gl = document.getElementById("gameList");
+gl.innerHTML = gList.map(g => '<div class="col-lg-4 col-md-6"><div class="game-card" data-url="' + g.url + '"><img src="' + g.thumbnail + '" alt="' + g.title + '" class="game-card-thumbnail"><div class="game-card-body"><h5 class="game-card-title">' + g.title + "</h5></div></div></div>").join("");
+document.querySelectorAll(".game-card").forEach(card => {
+card.addEventListener("click", () => openGame(card.dataset.url))
+})
+}
+function searchGames() {
+const q = document.getElementById("searchBar").value.toLowerCase(),
+filtered = games.filter(g => g.title.toLowerCase().includes(q));
+renderGames(filtered)
+}
+function openGame(url) {
+const i = document.getElementById("iframeContainer"),
+f = document.getElementById("gameIframe");
+f.src = url;
+i.style.display = "flex"
+}
+function setup() {
+document.getElementById("searchBar").addEventListener("input", searchGames);
+document.getElementById("closeIframe").addEventListener("click", () => {
+const i = document.getElementById("iframeContainer"),
+f = document.getElementById("gameIframe");
+f.src = "";
+i.style.display = "none"
+});
+document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+document.getElementById("navMain").addEventListener("click", e => {
+e.preventDefault();
+document.getElementById("mainContent").style.display = "block";
+document.getElementById("appsContent").style.display = "none";
+document.getElementById("navMain").classList.add("active");
+document.getElementById("navApps").classList.remove("active")
+});
+document.getElementById("navApps").addEventListener("click", e => {
+e.preventDefault();
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("appsContent").style.display = "block";
+document.getElementById("navApps").classList.add("active");
+document.getElementById("navMain").classList.remove("active")
+})
+}
+function toggleTheme() {
+document.body.classList.toggle("theme-light");
+document.getElementById("iframeContainer").classList.toggle("theme-light")
+}
+document.addEventListener("DOMContentLoaded", () => {
+startupSequence();
+renderGames();
+setup()
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
