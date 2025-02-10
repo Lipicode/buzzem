@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta
@@ -7,61 +7,53 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <title>Buzzem | Error</title>
-
     <meta
       name="description"
-      content="Buzzem encountered an error. The server could not route your request. Please try again later."
+      content="Ultraviolet is a highly sophisticated proxy used for evading internet censorship or accessing websites in a controlled sandbox using the power of service-workers. Unblock sites today!"
     />
-    <meta name="robots" content="noindex, nofollow" />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: dark)"
       content="#434c5e"
     />
     <meta name="googlebot" content="noindex, nofollow, nosnippet" />
-
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <base href="/" />
+    <link rel="shortcut icon" content="favicon.ico" />
     <link rel="stylesheet" href="index.css" />
-
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-97C832V55B"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-97C832V55B");
-    </script>
   </head>
 
   <body>
-    <div class="container">
-      <header>
-        <div class="logo-wrapper">
-          <h1>Buzzem | Error</h1>
-        </div>
-      </header>
-
-      <main class="error-content">
-        <p>The server could not route your request. Please try again later.</p>
-        <p id="uv-error"></p>
-        <code id="uv-error-code"></code>
-
-        <button id="uv-register-sw">Register Service Worker</button>
-      </main>
-
-      <footer>
-        <a title="License information" href="credits.html">Credits</a>
-        <span>Ultraviolet &copy; TN 2022</span>
-      </footer>
+    <div class="logo-wrapper left-margin">
+      <h1>Buzzem | Error</h1>
     </div>
-
-    <script defer src="uv/uv.bundle.js"></script>
-    <script defer src="uv/uv.config.js"></script>
-    <script defer src="register-sw.js"></script>
-    <script defer src="error.js"></script>
+    <div class="desc left-margin">
+      <p>The server could not route your request.</p>
+      <p id="uv-error"></p>
+      <code id="uv-error-code"></code>
+      <button id="uv-register-sw" value="Register service worker">
+        Register ServiceWorker
+      </button>
+    </div>
+    <footer>
+      <a
+        title="License information"
+        href="credits.html"
+        style="margin-left: auto"
+        >Credits</a
+      >
+      <span>Ultraviolet &copy; TN 2022</span>
+    </footer>
+    <script src="uv/uv.bundle.js"></script>
+    <script src="uv/uv.config.js"></script>
+    <script src="register-sw.js"></script>
+    <script src="error.js"></script>
   </body>
 </html>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97C832V55B"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-97C832V55B');
+        </script>
