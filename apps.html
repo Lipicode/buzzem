@@ -28,6 +28,16 @@ const games = [
                     rating: 4.5,
                     releaseDate: "2024-01-15",
                 },
+                {
+                    id: "TTOK3",
+                    title: "Tiktok (server 3, local)",
+                    genre: "media",
+                    thumbnail: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/03/tiktok.jpg",
+                    url: "/static/iframe.html#https://tiktok.com",
+                    popularity: 85,
+                    rating: 4.5,
+                    releaseDate: "2024-01-15",
+                },
 ];
 function startupSequence(){const t=document.getElementById("terminalOutput"),s=document.getElementById("startupScreen"),m=document.getElementById("mainContent"),msgs=["Initializing Buzzem apps...","Loading app database...","Preparing apps hub...","idk what to put here"];let mi=0,ci=0;function typeNextChar(){if(mi<msgs.length){const currentMessage=msgs[mi];if(ci<currentMessage.length){t.textContent+=currentMessage[ci];ci++;setTimeout(typeNextChar,50)}else{t.textContent+="\n";mi++;ci=0;setTimeout(typeNextChar,500)}}else{setTimeout(()=>{s.style.display="none";m.style.display="block"},500)}};typeNextChar()}
 function renderGames(gList=games){const gl=document.getElementById("gameList");gl.innerHTML=gList.map(g=>'<div class="col-lg-4 col-md-6"><div class="game-card" data-url="'+g.url+'"><img src="'+g.thumbnail+'" alt="'+g.title+'" class="game-card-thumbnail"><div class="game-card-body"><h5 class="game-card-title">'+g.title+"</h5></div></div></div>").join("");document.querySelectorAll(".game-card").forEach(card=>{card.addEventListener("click",()=>openGame(card.dataset.url))})}
